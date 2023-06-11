@@ -1,0 +1,35 @@
+---
+- name: Exchange Keys between servers
+  remote_user: postgres
+  hosts: target_hosts
+  tasks:
+    - name: Usuń plik .ssh/authenticated
+      file:
+        path: ~/.ssh/
+        state: absent
+
+    - name: SSH KeyGen command
+      tags: run
+      shell: >
+        ssh-keygen -q -b 2048 -t rsa -N "" -f ~/.ssh/id_rsa
+
+    - name: Fetch the keyfile from one server to another
+      tags: run
+      fetch:
+        src: "~/.ssh/id_rsa.pub"
+        dest: "buffer/{{ansible_hostname}}-id_rsa.pub"
+        flat: yes
+
+    - name: Skopiuj klucz do pliku authorized_keys przy użyciu modułu Ansible
+      tags: run
+      authorized_key:
+        user: postgres
+        state: present
+        key: "{{ lookup('file', 'buffer/{{item.dest}}-id_rsa.pub') }}"
+      when: item.dest != ansible_hostname
+      with_items:
+        - { dest: "{{groups['target_hosts'][0]}}" }
+        - { dest: "{{groups['target_hosts'][1]}}" }
+        - { dest: "{{groups['target_hosts'][2]}}" }
+        - { dest: "{{groups['target_hosts'][3]}}" }
+        - { dest: "{{groups['target_hosts'][4]}}" }

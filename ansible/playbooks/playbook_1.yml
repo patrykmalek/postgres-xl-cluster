@@ -1,0 +1,26 @@
+---
+- name: Stop PostgreSQL service and change user's home directory
+  hosts: target_hosts
+  become: true
+  remote_user: vagrant
+  become_method: sudo
+  tasks:
+    - name: Stop PostgreSQL service
+      service:
+        name: postgresql
+        state: stopped
+
+    - name: pkill command
+      shell: "pkill -9 -u postgres || true"
+      ignore_errors: true
+
+    - name: Change user's home directory
+      user:
+        name: postgres
+        home: /home/postgres
+        shell: /bin/bash
+
+    - name: Run PostgreSQL service
+      service:
+        name: postgresql
+        state: started

@@ -1,0 +1,6 @@
+[target_hosts]
+node1 dest=10.0.0.101 ansible_user=postgres ansible_password=agh_lab
+node2 dest=10.0.0.102 ansible_user=postgres ansible_password=agh_lab
+node3 dest=10.0.0.103 ansible_user=postgres ansible_password=agh_lab
+node4 dest=10.0.0.104 ansible_user=postgres ansible_password=agh_lab
+node5 dest=10.0.0.105 ansible_user=postgres ansible_password=agh_lab

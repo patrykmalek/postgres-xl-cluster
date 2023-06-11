@@ -1,0 +1,78 @@
+---
+- name: Install postgres-xl_9.5
+  hosts: target_hosts
+  remote_user: postgres
+  environment:
+    PATH: "/usr/local/bin:/usr/bin:/bin"
+  tasks:
+    # - name: Usuń plik "postgres-xl"
+    #   file:
+    #     path: /home/postgres/postgres-xl/
+    #     state: absent
+
+    # - name: Utwórz katalog "postgres-xl"
+    #   file:
+    #     path: /home/postgres/postgres-xl
+    #     state: directory
+
+    # - name: Wykonaj apt-get update
+    #   become: true
+    #   remote_user: postgres
+    #   become_method: sudo
+    #   apt:
+    #     update_cache: yes
+
+    # - name: Install required packages
+    #   become: true
+    #   remote_user: postgres
+    #   become_method: sudo
+    #   become_exe: /usr/bin/sudo
+    #   apt:
+    #     name:
+    #       # - build-essential
+    #       # - tar
+    #       # - libreadline-dev
+    #       # - zlib1g-dev
+    #       # - libssl-dev
+    #       # - libxml2-dev
+    #       # - flex
+    #       - bison
+    #       - git
+    #     state: present
+
+    # - name: Sklonuj repozytorium
+    #   git:
+    #     repo: "git://git.postgresql.org/git/postgres-xl.git"
+    #     dest: /home/postgres/postgres-xl
+
+    # - name: Configure
+    #   shell: ./configure
+    #   args:
+    #     chdir: /home/postgres/postgres-xl
+
+    # - name: Run 'make' command
+    #   shell: make
+    #   args:
+    #     chdir: /home/postgres/postgres-xl
+
+    # - name: Run 'sudo make install' command
+    #   shell: make install
+    #   become: true
+    #   remote_user: postgres
+    #   become_method: sudo
+    #   become_exe: /usr/bin/sudo
+    #   args:
+    #     chdir: /home/postgres/postgres-xl
+    - name: Run 'make' command
+      shell: make
+      args:
+        chdir: /home/postgres/postgres-xl/contrib
+
+    - name: Run 'sudo make install' command
+      shell: make install
+      become: true
+      remote_user: postgres
+      become_method: sudo
+      become_exe: /usr/bin/sudo
+      args:
+        chdir: /home/postgres/postgres-xl/contrib

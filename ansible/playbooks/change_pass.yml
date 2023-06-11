@@ -1,0 +1,9 @@
+---
+- name: Change pass
+  hosts: target_hosts
+  become: true
+  remote_user: postgres
+  become_method: sudo
+  tasks:
+    - name: Change vagrant user password
+      shell: echo "vagrant:agh_lab" | chpasswd

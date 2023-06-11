@@ -1,0 +1,40 @@
+---
+- name: Fetch the file from server
+  remote_user: postgres
+  hosts: target_hosts
+  tasks:
+    # - name: Fetch the file from server
+    #   tags: run
+    #   fetch:
+    #     src: "/home/postgres/pgxc_ctl/pgxc_ctl.conf"
+    #     dest: "files/pgxc_ctl_KOPIA.conf"
+    #     flat: yes
+
+    - name: Copy file to remote host
+      copy:
+        src: pgxc_ctl.conf
+        dest: /home/postgres/pgxc_ctl/pgxc_ctl.conf
+
+    # - name: Fetch the file from server
+    #   tags: run
+    #   fetch:
+    #     src: ~/.profile
+    #     dest: "files/.profile_KOPIA"
+    #     flat: yes
+
+    # - name: Copy file to remote host
+    #   copy:
+    #     src: .profile_KOPIA
+    #     dest: ~/.profile
+
+    # - name: Fetch the file from server
+    #   tags: run
+    #   fetch:
+    #     src: /home/postgres/postgres-xl/src/bin/pg_rewind/copy_fetch.c
+    #     dest: "files/copy_fetch.c"
+    #     flat: yes
+
+    # - name: Copy file to remote host
+    #   copy:
+    #     src: copy_fetch.c
+    #     dest: /home/postgres/postgres-xl/src/bin/pg_rewind/copy_fetch.c
