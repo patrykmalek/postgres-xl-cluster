@@ -1,0 +1,66 @@
+---
+- name: Preparation of the environment and installation of postgres-xl
+  hosts: target_hosts
+  remote_user: postgres
+  tasks:
+    - name: Create directory "DATA/nodes"
+      file:
+        path: /home/postgres/DATA/pgxl/nodes
+        state: directory
+
+    - name: Create directory "postgres-xl"
+      file:
+        path: /home/postgres/postgres-xl
+        state: directory
+
+    - name: Run apt-get update
+      become: true
+      remote_user: postgres
+      become_method: sudo
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      become: true
+      remote_user: postgres
+      become_method: sudo
+      apt:
+        name:
+          - build-essential
+          - tar
+          - libreadline-dev
+          - zlib1g-dev
+          - libssl-dev
+          - libxml2-dev
+          - flex
+        state: present
+
+    - name: Copy postgres-xl file to target hosts
+      copy:
+        src: postgres-xl-10r1.1.tar.gz
+        dest: /home/postgres/
+
+    - name: Extract file directly to specified directory
+      unarchive:
+        src: /home/postgres/postgres-xl-10r1.1.tar.gz
+        dest: /home/postgres/postgres-xl
+        remote_src: yes
+        extra_opts: "--strip-components=1"
+
+    - name: Run './configure' command
+      shell: ./configure
+      args:
+        chdir: /home/postgres/postgres-xl
+
+    - name: Run 'make' command
+      shell: make
+      args:
+        chdir: /home/postgres/postgres-xl
+
+    - name: Run 'sudo make install' command
+      shell: make install
+      become: true
+      remote_user: postgres
+      become_method: sudo
+      args:
+        chdir: /home/postgres/postgres-xl

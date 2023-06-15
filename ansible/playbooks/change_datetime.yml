@@ -1,10 +1,10 @@
 ---
-- name: Fetch the file from server
+- name: Change datetime and check.
   hosts: target_hosts
   become: true
   remote_user: postgres
   tasks:
-    - name: set current date
+    - name: Set current date
       shell: "timedatectl set-timezone Europe/Warsaw"
 
     - name: Get timestamp from the system

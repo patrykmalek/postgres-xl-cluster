@@ -3,12 +3,12 @@
   remote_user: postgres
   hosts: target_hosts
   tasks:
-    - name: Usuń plik .ssh/authenticated
+    - name: Delete file .ssh/authenticated
       file:
         path: ~/.ssh/
         state: absent
 
-    - name: SSH KeyGen command
+    - name: SSH KeyGen command to generate ssh keys
       tags: run
       shell: >
         ssh-keygen -q -b 2048 -t rsa -N "" -f ~/.ssh/id_rsa
@@ -20,7 +20,7 @@
         dest: "buffer/{{ansible_hostname}}-id_rsa.pub"
         flat: yes
 
-    - name: Skopiuj klucz do pliku authorized_keys przy użyciu modułu Ansible
+    - name: Copy ssh key to all nodes
       tags: run
       authorized_key:
         user: postgres
