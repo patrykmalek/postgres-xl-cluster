@@ -4,7 +4,7 @@
 - [Geographic Replication](#geographic-replication)
 - [Scaling](#scaling)
 - [Glossary](#glossary)
-- [Runtime/Test Environment](#runtime-test-environment)
+- [Runtime Test Environment](#runtime-test-environment)
 
 ## Introduction
 
@@ -34,7 +34,7 @@ Both types of scaling can be utilized in Postgres-XL to improve system performan
 - RDS (Relational Database Service) - A service for managing relational databases in AWS. It enables easy creation, scaling, and management of databases.
 - MPLS (Multiprotocol Label Switching) - A technology that provides fast and reliable data transmission by ensuring appropriate priority and flow of network traffic.
 
-## Runtime/Test Environment
+## Runtime Test Environment
 
 To run the Postgres-XL cluster in a test environment, we used Vagrant and VirtualBox.
 
