@@ -8,7 +8,9 @@
 
 ## Introduction
 
-The purpose of this documentation is to describe the configuration and testing of a Postgres-XL cluster with high availability (HA) enabled for the Computer Systems Administration laboratory project.
+- Author: Jakub Kolasiak, Patryk Małek
+
+The purpose of this documentation is to describe the configuration and testing of a Postgres-XL cluster with high availability (HA) enabled for the AGH laboratory project.
 
 This cluster will be based on PostgreSQL, allowing for vertical and horizontal scaling.
 
@@ -40,7 +42,7 @@ Vagrant is a tool for managing virtual machines that allows for easy and reprodu
 
 VirtualBox is free virtualization software that enables running virtual machines on your computer.
 
-Environment Version:
+### Environment Version:
 
 - Vagrant 2.3.6
 - VirtualBox 7.0.8 r156879
